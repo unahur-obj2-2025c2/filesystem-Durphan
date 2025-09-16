@@ -28,7 +28,7 @@ La implementación que desarrollemos debe cumplir con los siguientes requisitos:
 - **Obtener el archivo más pesado del sistema de archivos**.
 - **Listar todo el sistema de archivos**, mostrando identaciones sobre las carpetas anidadas con su correspondiente tamaño`. Similar a lo siguiente
 
-```
+```bash
 └ root ( 2590-Bytes )
    ├ Notas.txt
    ├ Dibujo-A.jpg
@@ -48,7 +48,7 @@ La implementación que desarrollemos debe cumplir con los siguientes requisitos:
 
 - Definir una interface común que permita operar de la misma forma sobre archivos y carpetas en los requerimientos anteriores.
 
-```
+```java
 package ar.edu.unahur.obj2;
 
 public interface IElemento {
@@ -69,7 +69,7 @@ public interface IElemento {
 
 - Incluir un objeto FileSystem como punto de entrada que represente el sistema completo y que delegue los requerimientos en la estructura interna.
 
-```
+```java
 package ar.edu.unahur.obj2;
 
 public class FileSystem {

@@ -110,4 +110,52 @@ class CarpetaTest {
         assertEquals("Carpeta: Vacia (Peso: 0)", carpetaVacia.toString());
         assertEquals("Carpeta: ConArchivos (Peso: 30)", carpetaConArchivos.toString());
     }
+
+    @Test
+    void testConstructorConElementos() {
+        List<IElemento> elementos = new ArrayList<>();
+        elementos.add(archivo1);
+        elementos.add(archivo2);
+        Carpeta carpeta = new Carpeta("Test", elementos);
+        assertEquals("Test", carpeta.getNombre());
+        assertEquals(2, carpeta.getElementos().size());
+        assertTrue(carpeta.getElementos().contains(archivo1));
+        assertTrue(carpeta.getElementos().contains(archivo2));
+    }
+
+    @Test
+    void testAgregarCarpetaComoElemento() {
+        Carpeta subCarpeta = new Carpeta("Sub");
+        carpetaVacia.agregarElemento(subCarpeta);
+        assertEquals(1, carpetaVacia.getElementos().size());
+        assertTrue(carpetaVacia.getElementos().contains(subCarpeta));
+    }
+
+    @Test
+    void testGetPesoConSubcarpetas() {
+        Carpeta subCarpeta = new Carpeta("Sub");
+        subCarpeta.agregarElemento(archivo3); // peso 5
+        carpetaVacia.agregarElemento(archivo1); // peso 10
+        carpetaVacia.agregarElemento(subCarpeta);
+        assertEquals(15, carpetaVacia.getPeso());
+    }
+
+    @Test
+    void testSistemaDeArchivosAnidado() {
+        Carpeta subCarpeta = new Carpeta("Sub");
+        Carpeta subSubCarpeta = new Carpeta("SubSub");
+        subSubCarpeta.agregarElemento(archivo3);
+        subCarpeta.agregarElemento(subSubCarpeta);
+        carpetaVacia.agregarElemento(archivo1);
+        carpetaVacia.agregarElemento(subCarpeta);
+
+        StringBuilder esperado = new StringBuilder();
+        esperado.append(carpetaVacia.toString()).append("\n");
+        esperado.append(archivo1.toString()).append("\n");
+        esperado.append(subCarpeta.toString()).append("\n");
+        esperado.append(subSubCarpeta.toString()).append("\n");
+        esperado.append(archivo3.toString()).append("\n");
+        assertEquals(esperado.toString(), carpetaVacia.sistemaDeArchivos().toString());
+    }
+
 }
