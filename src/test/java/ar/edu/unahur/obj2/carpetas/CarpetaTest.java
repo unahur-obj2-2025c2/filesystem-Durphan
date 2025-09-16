@@ -158,4 +158,11 @@ class CarpetaTest {
         assertEquals(esperado.toString(), carpetaVacia.sistemaDeArchivos().toString());
     }
 
+    @Test
+    void testArchivoMasGrandeEnCarpetaVacia() {
+        assertThrows(RuntimeException.class, () -> {
+            carpetaVacia.archivoMasGrande();
+        });
+    }
+
 }
